@@ -1,0 +1,34 @@
+name: Salesforce Static Code Analysis
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  static-code-analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install SFDX CLI
+        run: |
+          npm install --global sfdx-cli
+          sfdx --version
+
+      - name: Install PMD (Static Code Analysis)
+        run: |
+          wget https://github.com/pmd/pmd/releases/download/pmd_releases/6.50.0/pmd-bin-6.50.0.zip
+          unzip pmd-bin-6.50.0.zip
+          mv pmd-bin-6.50.0 pmd
+          echo "$(pwd)/pmd/bin" >> $GITHUB_PATH
+
+      - name: Run PMD Analysis
+        run: |
+          ./pmd/bin/run.sh pmd -d force-app/main/default/classes/ -R rulesets/apex/quickstart.xml -f text
+
