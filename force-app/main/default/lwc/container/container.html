@@ -1,0 +1,20 @@
+<template>
+        <div class="content_app_valley" >
+            <div class="slds-grid slds-grid_vertical">
+                <!--Header-->
+                <div class="c_header" style={computeHeaderStyle}>
+                    <c-header></c-header>
+                </div>
+            
+                <!--Content-->
+                <div class="c_content" style={setPageHeight}>
+                    <c-information></c-information>
+                </div>
+                
+                <!--Footer-->
+                <div class="c_footer" style="position:sticky; bottom:0; z-index:1;">
+                    <c-footer></c-footer>
+                </div>
+            </div>
+        </div>
+</template>

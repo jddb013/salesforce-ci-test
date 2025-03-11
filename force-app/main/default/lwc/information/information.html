@@ -1,0 +1,122 @@
+<template>
+    <template if:true={isInformation}>
+        <div class="slds-p-around_none">
+            <c-path current-step={currentStep} onnavigateback={handleNavigateBack} onnavigatebackinformation={handleNavigateBackStep}></c-path>
+        </div>
+        <div class="slds-grid slds-gutters slds-m-top-large">
+            <div class="slds-col slds-size_12-of-12">
+            <div class="slds-text-align_center"><br/>
+                <template if:true={isPendingInput}>
+                <p class="slds-text-heading_medium">Por favor ingrese su información</p><br>
+                </template>
+            </div>
+            </div>
+        </div>
+        <template if:true={screenAge}>
+            <div class="container_370">
+                <div class="slds-grid slds-gutters ">
+                    <div class="slds-col slds-size_12-of-12">
+                        <div class="slds-grid">
+                        <template if:true={isAgeCalculated}>
+                            <p>&nbsp;(EDAD EN AÑOS: {age})</p>
+                        </template>
+                        </div>
+                        <lightning-input type="date" name="dateValue" label={screenAgeLabel} placeholder="MM/DD/YYYY" onchange={handleDateChange}
+                        oninput={handleDateInput}  value={dateOfBirth} key={dateOfBirth}></lightning-input>
+                        <template if:true={today}>
+                            <p style="color: red;">el valor debe ser {today} o superior</p>
+                        </template>
+                        <template if:true={bodChanged}>
+                            <p style="color: red;">Esta es la informacion que tenemos sobre su fecha de nacimiento: <strong>{bodString}</strong></p>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template if:true={screenInsurance}>
+            <div class="container_370">
+                <div class="slds-grid slds-gutters  ">
+                    <div class="slds-col slds-size_12-of-12">
+                        <br>    
+                        <lightning-combobox
+                            name="insurance"
+                            label={screenInsuranceLabel}
+                            value={searchTermInsurance}
+                            options={listOfInsurance}
+                            onchange={handleChangeInsurance}
+                            placeholder="Seleccione una Aseguradora"
+                            >
+                        </lightning-combobox>
+                        <template if:true={InsuranceChanged}>
+                            <p style="color: red;">Esta es la informacion que tenemos sobre su aseguradora: <strong>{insurance}</strong></p>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container_370">
+                <div class="slds-grid slds-gutters  ">
+                    <div class="slds-col slds-size_12-of-12">
+                        <br>
+                        <lightning-combobox
+                            name="plan"
+                            label={screenPlanLabel}
+                            value={searchTermPlan}
+                            options={listOfPlanOptions}
+                            onchange={handleChangePlan}
+                            placeholder="Seleccione un Plan"
+                            >
+                        </lightning-combobox>
+                        <template if:true={PlanChanged}>
+                            <p style="color: red;">Esta es la informacion que tenemos sobre su plan: <strong>{plan}</strong></p>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <div class="slds-grid slds-gutters slds-m-top-large">
+            <div class="slds-col slds-size_12-of-12">
+            <div class="slds-text-align_center">
+                <br>
+                <template if:true={isPendingInput}>
+                    <p class="slds-text-heading_medium">{bookingHeader}</p>
+                </template>
+            </div>
+            </div>
+        </div>
+
+        <div class="container_370">
+            <div class="slds-grid slds-gutters slds-wrap slds-m-bottom_medium">
+                <div class="slds-col slds-size_12-of-12 slds-large-size_6-of-12 slds-m-top_medium">
+                    <div class="slds-text-align_center">
+                        <lightning-button variant="Neutral" label="SI" title="" disabled={isNextDisable}
+                            onclick={handleNewPatient} class="btn_yellow"></lightning-button>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_12-of-12 slds-large-size_6-of-12 slds-m-top_medium">
+                    <div class="slds-text-align_center">
+                        <lightning-button variant="Neutral" label="NO" title="" disabled={isNextDisable}
+                            onclick={handleExistingPatient} class="btn_blue"></lightning-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>  
+  
+    <template if:true={isAppointment}>
+        <div class="slds-p-around_none">
+            <c-appointment 
+                is-appointment={isAppointment} 
+                age={age}
+                payload-values={payloadValues} 
+                new-patient={newPatient}
+                insurance={insurance} 
+                plan={plan} 
+                onnavigateback={handleNavigateBack} 
+                >
+            </c-appointment>
+        </div>
+    </template>
+  </template>

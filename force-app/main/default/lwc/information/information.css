@@ -1,0 +1,51 @@
+.container_370 {
+    width: 80%;
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+.slds-button_neutral[disabled],
+.slds-button_neutral:disabled,
+.slds-button--neutral[disabled],
+.slds-button--neutral:disabled {
+    opacity: .7;
+}
+
+.btn_primary_color-underline,
+.btn_primary_color,
+.btn_secondary_color {
+    display: block;
+}
+
+.btn_primary_color button {
+    border-radius: 6.25rem;
+    background: #00593e !important;
+    height: 3.75rem;
+    line-height: 3.75rem;
+    border: none !important;
+    color: #fff !important;
+    display: block;
+    width: 100%;
+}
+
+.btn_secondary_color button {
+    border-radius: 6.25rem;
+    background:  #427767 !important;
+    height: 3.75rem;
+    line-height: 3.75rem;
+    border: none !important;
+    color: #fff !important;
+    display: block;
+    width: 100%;
+}
+
+.btn_primary_color-underline button {
+    border-radius: 6.25rem;
+    background: #fff !important;
+    border: 1px solid #00593e !important;
+    height: 3.75rem;
+    line-height: 3.75rem;
+    color: var(--scheduling-flow-primary-color) !important;
+    display: block;
+    width: 100%;
+}

@@ -1,0 +1,14 @@
+.footer{ background: rgba(217, 220, 230); font-size: 12px;text-transform: uppercase; margin: 0; padding-top: 1.5rem; padding-bottom: 1.5rem;}
+.footer a{margin-right: 2rem;}
+.footer a, .footer h6{color: #303CA8; }
+
+
+/* @media (max-width: 789.98px){
+  footer a {
+      margin: 0 1rem;
+  }
+  .footer .text-right{ text-align: center !important;margin-top: 1rem;}
+
+}
+
+ */
