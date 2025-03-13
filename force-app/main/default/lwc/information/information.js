@@ -24,8 +24,8 @@ export default class Information extends LightningElement {
     insurance;
     plan;
     @track dateOfBirth;
-    @track searchTermInsurance = ''; // Valor quemado para el combobox de aseguradora
-    @track searchTermPlan = ''; // Valor quemado para el combobox de plan
+    @track searchTermInsurance = ''; 
+    @track searchTermPlan = '';
     @track listOfInsurance = listOfInsuranceOptions;
     @track listOfPlanOptions = listOfPlanOptions;
     @track bookingHeader;
@@ -38,8 +38,8 @@ export default class Information extends LightningElement {
         this.screenAgeLabel = 'Fecha de nacimiento';
         this.screenInsuranceLabel = 'Aseguradora';
         this.screenPlanLabel = 'Plan';
-        this.screenInsurance = true;//normalmente lo obtendria de un custom metadata
-        this.screenAge = true;//normalmente lo obtendria de un custom metadata
+        this.screenInsurance = true;
+        this.screenAge = true;
 
         const childElement = this.template.querySelector('c-path');
         if (childElement) {
@@ -51,7 +51,6 @@ export default class Information extends LightningElement {
         this.getClientSettings();
     }
 
-    // Métodos para manejar eventos y cambios
     handleDateChange(event) {
         this.dateOfBirth = event.target.value;
         this.checkButtons();
@@ -104,13 +103,10 @@ export default class Information extends LightningElement {
         }
     }
 
-    // Métodos para mostrar y ocultar modales
     handleConfirm() {
-        // Lógica de confirmación
     }
 
     handleReturn() {
-        // Lógica de retorno
     }
 
     handleNavigateBack() {
@@ -124,11 +120,4 @@ export default class Information extends LightningElement {
         }
     }
 
-    handleSaveSignInConsent() {
-        // Lógica para guardar el consentimiento de firma
-    }
-
-    closeSignModal() {
-        // Lógica para cerrar el modal de firma
-    }
 }
