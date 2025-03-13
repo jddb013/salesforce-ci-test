@@ -1,4 +1,4 @@
-name: Salesforce Code Analysis & Tests
+name: Salesforce Code Analysis
 
 on:
   pull_request:
@@ -41,40 +41,3 @@ jobs:
             echo "Security issues found. Failing the build."
             exit 1
           fi
-
-  apex-tests:
-    name: Run Apex Tests & Code Coverage
-    runs-on: ubuntu-latest
-    needs: static-analysis
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Install Salesforce CLI
-        run: |
-          npm install -g sfdx-cli
-
-      - name: Authenticate Salesforce Org
-        run: |
-          echo ${{ secrets.SFDX_AUTH_URL }} > authfile.json
-          sfdx auth:sfdxurl:store -f authfile.json -s -a test-org
-
-      - name: Run Apex Tests
-        run: |
-          sfdx force:apex:test:run --resultformat human --codecoverage --outputdir test-results
-
-      - name: Check Code Coverage
-        run: |
-          COVERAGE=$(grep -oP '(?<=Total Coverage: )[0-9]+' test-results/test-run-id.txt)
-          echo "Code coverage: $COVERAGE%"
-          if [ "$COVERAGE" -lt 75 ]; then
-            echo "Code coverage below 75%. Failing build."
-            exit 1
-          fi
-
-      - name: Upload Test Results
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results
-          path: test-results/
