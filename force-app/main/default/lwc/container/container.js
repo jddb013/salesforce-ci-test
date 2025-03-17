@@ -7,6 +7,7 @@ export default class Container extends LightningElement {
 
     @track communityUser;
     @track headerIndex = 'z-index: 1001';
+    @track deleteit;
 
     get setPageHeight() {
         if(!this.communityUser){
