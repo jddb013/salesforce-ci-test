@@ -25,6 +25,7 @@ export default class Container extends LightningElement {
     connectedCallback() {
         loadStyle(this, modal);
         loadStyle(this, fonts);
+        console.log('*** container');
     }
 
 }
