@@ -1,0 +1,42 @@
+name: OWASP Security Scan
+
+on:
+  pull_request:
+    branches:
+      - main  # Se ejecuta en cada PR hacia main
+  schedule:
+    - cron: '0 0 * * 1'  # Se ejecuta cada lunes a medianoche UTC
+
+jobs:
+  security-check:
+    name: OWASP Security Analysis
+    runs-on: ubuntu-latest  # Usa un contenedor Linux
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Instala Node.js para analizar dependencias de LWC
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # Instala OWASP Dependency-Check
+      - name: Run OWASP Dependency-Check
+        run: |
+          npm install -g dependency-check
+          dependency-check --scan package.json --out owasp-report.html || true
+
+      # Instala ESLint con reglas de seguridad OWASP
+      - name: Run ESLint Security Check
+        run: |
+          npm install eslint eslint-plugin-security --save-dev
+          npx eslint force-app/main/default/lwc --ext .js --plugin security --rule 'security/detect-object-injection: error'
+
+      # Guarda los reportes como artefactos en GitHub Actions
+      - name: Upload OWASP Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: owasp-security-report
+          path: owasp-report.html
