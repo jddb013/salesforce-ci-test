@@ -1,0 +1,10 @@
+{
+  "name": "salesforce-ci-test",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "eslint": "^9.0.0",
+    "eslint-plugin-lwc": "^0.15.0",
+    "eslint-plugin-security": "^1.4.0"
+  }
+}
