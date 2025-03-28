@@ -31,7 +31,7 @@ jobs:
       # Instala ESLint con reglas de seguridad OWASP
       - name: Run ESLint Security Check
         run: |
-          npm install eslint eslint-plugin-security --save-dev
+          npm install eslint eslint-plugin-security eslint-plugin-lwc --save-dev
           npx eslint force-app/main/default/lwc --ext .js --plugin security --rule 'security/detect-object-injection: error'
 
       # Guarda los reportes como artefactos en GitHub Actions
