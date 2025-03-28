@@ -1,4 +1,4 @@
-export default [
+module.exports = [
   {
     // Ignore node_modules and static resources
     ignores: ["node_modules/**", "force-app/main/default/staticresources/**"],
