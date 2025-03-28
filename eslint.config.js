@@ -13,16 +13,18 @@ module.exports = [
       ecmaVersion: 2020, // Allows modern JavaScript features
     },
 
-    // Add ESLint plugins
+    // Add ESLint plugins correctly
     plugins: {
-      lwc: require("eslint-plugin-lwc"), // Enables LWC linting
+      lwc: require.resolve("eslint-plugin-lwc"),
     },
 
     // Extend recommended LWC rules
+    extends: ["plugin:lwc/recommended"],
+
+    // Define additional linting rules
     rules: {
-      ...require("eslint-plugin-lwc").configs.recommended.rules, // Use LWC best practices
-      "no-unused-vars": "warn", // Warns about unused variables instead of failing
-      "no-console": "off" // Allows console.log() for debugging
+      "no-unused-vars": "warn",
+      "no-console": "off",
     },
   },
 ];
