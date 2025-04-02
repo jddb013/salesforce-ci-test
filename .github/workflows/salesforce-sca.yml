@@ -24,7 +24,7 @@ jobs:
       - name: Install SFDX CLI
         run: |
           npm install --global sfdx-cli
-          sfdx --version || true
+          sfdx --version || true 
 
       - name: Install PMD (Static Code Analysis)
         run: |
