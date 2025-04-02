@@ -10,5 +10,5 @@ public with sharing class ChangePasswordController {
         return Site.changePassword(newPassword, verifyNewPassword, oldpassword);    
     }     
     
-   	public ChangePasswordController() {System.debug('***');}
+   	public ChangePasswordController() {System.debug('*** ChangePasswordController main');}
 }
