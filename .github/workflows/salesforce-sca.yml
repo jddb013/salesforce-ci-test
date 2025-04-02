@@ -1,14 +1,6 @@
 name: Salesforce Static Code Analysis
 
-on:
-  push:
-    branches:
-      - main
-      - code-analysis-test
-  pull_request:
-    branches:
-      - main
-      - code-analysis-test
+on: workflow_dispatch
 
 jobs:
   static-code-analysis:
