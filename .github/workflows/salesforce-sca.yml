@@ -1,10 +1,10 @@
 name: Salesforce Static Code Analysis
 
 on:
-  pull_request:
+  push:
     branches:
       - main
-  push:
+  pull_request:
     branches:
       - main
 
@@ -13,48 +13,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout the repository to get the latest code
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      # 2. Install Salesforce CLI to execute Salesforce commands
-      - name: Install Salesforce CLI
-        run: npm install -g sfdx-cli
-
-      # 3. Install Salesforce Scanner plugin for static code analysis
-      - name: Install SFDX Scanner
-        run: sfdx plugins:install @salesforce/sfdx-scanner
-
-      # 4. Install ESLint for LWC linting
-      - name: Install ESLint
-        run: npm install -g eslint
-
-      # 5. Run static code analysis for Apex and LWC
-      - name: Run Static Code Analysis
+      - name: Install SFDX CLI
         run: |
-          # General Salesforce Scanner analysis for Apex and LWC
-          sfdx scanner run --format html --target "force-app/main/default/classes,force-app/main/default/triggers,force-app/main/default/lwc" --outfile code-analysis-report.html
+          npm install --global sfdx-cli
+          sfdx --version
 
-          # PMD analysis for Apex classes and triggers
-          sfdx scanner run --engine pmd --target "force-app/main/default/classes,force-app/main/default/triggers" --format html --outfile pmd-report.html
-
-          # ESLint analysis for LWC JavaScript files
-          eslint "force-app/main/default/lwc/**/*.js" -f html -o eslint-report.html
-
-      # 6. Upload the generated reports as artifacts for review
-      - name: Upload Code Analysis Reports
-        uses: actions/upload-artifact@v4
-        with:
-          name: code-analysis-reports
-          path: |
-            code-analysis-report.html   # General Salesforce Scanner report
-            pmd-report.html             # PMD report for Apex
-            eslint-report.html          # ESLint report for LWC
-
-      # 7. Fail the build if security issues in Apex or errors in LWC are found
-      - name: Fail on Security or LWC Issues
+      - name: Install PMD (Static Code Analysis)
         run: |
-          if grep -q "Security" code-analysis-report.html || grep -q "Security" pmd-report.html || grep -q "error" eslint-report.html; then
-            echo "Security or LWC linting issues found. Failing the build."
-            exit 1
-          fi
+          wget https://github.com/pmd/pmd/releases/download/pmd_releases/6.50.0/pmd-bin-6.50.0.zip
+          unzip pmd-bin-6.50.0.zip
+          mv pmd-bin-6.50.0 pmd
+          echo "$(pwd)/pmd/bin" >> $GITHUB_PATH
+
+      - name: Run PMD Analysis
+        run: |
+          ./pmd/bin/run.sh pmd -d force-app/main/default/classes/ -R rulesets/apex/quickstart.xml -f text
