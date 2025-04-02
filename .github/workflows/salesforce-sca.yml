@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - main
+      - code-analysis-test
   pull_request:
     branches:
       - main
+      - code-analysis-test
 
 jobs:
   static-code-analysis:
