@@ -30,4 +30,4 @@ jobs:
 
       - name: Run PMD Analysis
         run: |
-          ./pmd/bin/run.sh pmd -d force-app/main/default/classes/ -R rulesets/apex/quickstart.xml -f text || exit 0
+          ./pmd/bin/run.sh pmd -d force-app/main/default/classes/ -R rulesets/apex/quickstart.xml -f text
